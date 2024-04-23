@@ -199,4 +199,4 @@ Body: JSON object representing the requested journal entry.
   - Client: Store JWT in local storage, include JWT on axios calls
   - Forgot password functionality
   - Expanded user information: full name, favorite café
-  - More complex and visually appeals UI interface
+  - More complex and visually appealing UI interface
