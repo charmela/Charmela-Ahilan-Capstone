@@ -13,9 +13,11 @@
   font-size: 22px;
   color: white;
   font-weight: 600;
+}
+.nav_link {
   &:hover {
-    // Changed from ".nav_link:hover" to "&:hover"
-    color: red; /* Corrected hover rule */
+    // Corrected the placement of ":hover"
+    color: #808080;
   }
 }
 
