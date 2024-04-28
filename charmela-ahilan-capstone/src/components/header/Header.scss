@@ -1,35 +1,38 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Changed 'end' to 'flex-end' */
+  justify-content: flex-end; // Changed from "end" to "flex-end"
   background-color: black;
   padding: 30px;
+}
 
-  .nav_links {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    font-size: 22px;
-    color: white;
-    font-weight: 600;
+.nav_links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  font-size: 22px;
+  color: white;
+  font-weight: 600;
+  &:hover {
+    // Changed from ".nav_link:hover" to "&:hover"
+    color: red; /* Corrected hover rule */
+  }
+}
 
-    a {
-      text-decoration: none;
-      color: white;
-      &:hover {
-        color: red; /* Corrected hover rule */
-      }
-    }
+.nav_link {
+  text-decoration: none;
+  color: white;
+}
+
+/* Media query for screens smaller than 430px */
+@media screen and (max-width: 430px) {
+  .header {
+    padding: 10px; /* Further reduced padding for smaller screens */
   }
 
-  /* Media query for screens smaller than 430px */
-  @media screen and (max-width: 430px) {
-    padding: 10px; /* Further reduced padding for smaller screens */
-
-    .nav_links {
-      gap: 10px; /* Further reduced gap for smaller screens */
-      font-size: 14px; /* Further reduced font size for smaller screens */
-    }
+  .nav_links {
+    gap: 10px; /* Further reduced gap for smaller screens */
+    font-size: 14px; /* Further reduced font size for smaller screens */
   }
 }
 
