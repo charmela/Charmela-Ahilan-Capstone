@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Changed 'end' to 'flex-end' */
+  background-color: black;
+  padding: 30px;
+
+  .nav_links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+
+    a {
+      text-decoration: none;
+      color: white;
+      &:hover {
+        color: red; /* Corrected hover rule */
+      }
+    }
+  }
+
+  /* Media query for screens smaller than 430px */
+  @media screen and (max-width: 430px) {
+    padding: 10px; /* Further reduced padding for smaller screens */
+
+    .nav_links {
+      gap: 10px; /* Further reduced gap for smaller screens */
+      font-size: 14px; /* Further reduced font size for smaller screens */
+    }
+  }
+}
+
+.active {
+  color: red;
+}
