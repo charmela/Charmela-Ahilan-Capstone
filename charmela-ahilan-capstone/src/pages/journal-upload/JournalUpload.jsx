@@ -110,7 +110,7 @@ export default function JournalUpload() {
     };
     try {
       if (entryData) {
-        // If entryData exists, it means we are editing an existing entry
+        // If entryData exists, it means editing an existing entry
         console.log(formData);
         await axios.put(
           `${process.env.REACT_APP_API_URL}/api/journal-entries/${entryData.id}`,
