@@ -11,7 +11,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-
+  console.log(apiUrl);
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
