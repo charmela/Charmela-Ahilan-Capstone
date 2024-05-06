@@ -7,9 +7,15 @@ export default function Header() {
   const [token, setToken] = useState(null);
   const auth_token = localStorage.getItem("token");
 
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  const handleShowNavbar = () => {
+    setShowNavbar(!showNavbar);
+  };
+
   useEffect(() => {
     if (auth_token) {
-      console.log("object");
+      console.log(auth_token);
       setToken(auth_token);
     }
   }, [auth_token]);
@@ -22,12 +28,28 @@ export default function Header() {
   };
 
   return (
-    <div>
-      <header className="header">
-        <div className="nav_links">
+    <nav className="navbar">
+      <div className="container">
+        <div className="logo">Daily Journal</div>
+        <div className="menu-icon" onClick={handleShowNavbar}>
+          <svg
+            style={{
+              marginTop: "10px",
+            }}
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="25"
+            height="25"
+            viewBox="0 0 50 50"
+          >
+            <path d="M 3 9 A 1.0001 1.0001 0 1 0 3 11 L 47 11 A 1.0001 1.0001 0 1 0 47 9 L 3 9 z M 3 24 A 1.0001 1.0001 0 1 0 3 26 L 47 26 A 1.0001 1.0001 0 1 0 47 24 L 3 24 z M 3 39 A 1.0001 1.0001 0 1 0 3 41 L 47 41 A 1.0001 1.0001 0 1 0 47 39 L 3 39 z"></path>
+          </svg>
+        </div>
+        <div className={`nav-elements  ${showNavbar && "active"}`}>
           {!token && (
-            <>
-              <div>
+            <ul>
+              <li>
                 <Link
                   className={`nav_link ${
                     location.pathname === "/login" ? "active" : ""
@@ -36,8 +58,8 @@ export default function Header() {
                 >
                   Login
                 </Link>
-              </div>
-              <div>
+              </li>
+              <li>
                 <Link
                   className={`nav_link ${
                     location.pathname === "/signup" ? "active" : ""
@@ -46,12 +68,12 @@ export default function Header() {
                 >
                   Sign up
                 </Link>
-              </div>
-            </>
+              </li>
+            </ul>
           )}
           {token && (
-            <>
-              <div>
+            <ul>
+              <li>
                 <Link
                   className={`nav_link ${
                     location.pathname === "/" ? "active" : ""
@@ -60,8 +82,8 @@ export default function Header() {
                 >
                   Home
                 </Link>
-              </div>
-              <div>
+              </li>
+              <li>
                 <Link
                   className={`nav_link ${
                     location.pathname === "/journal-entries" ? "active" : ""
@@ -70,8 +92,8 @@ export default function Header() {
                 >
                   Journal Entries
                 </Link>
-              </div>
-              <div>
+              </li>
+              <li>
                 <Link
                   className={`nav_link ${
                     location.pathname === "/create-journal-entry"
@@ -82,16 +104,16 @@ export default function Header() {
                 >
                   New Journal
                 </Link>
-              </div>
-              <div onClick={logouthandler}>
+              </li>
+              <li onClick={logouthandler}>
                 <div style={{ cursor: "pointer" }} className="nav_link">
                   Logout
                 </div>
-              </div>
-            </>
+              </li>
+            </ul>
           )}
         </div>
-      </header>
-    </div>
+      </div>
+    </nav>
   );
 }

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./JournalUpload.scss";
+import $ from "jquery";
 
 export default function JournalUpload() {
   const [quote, setQuote] = useState("");
@@ -14,9 +17,10 @@ export default function JournalUpload() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [entryData, setEntryData] = useState(null); // State variable to store entry data for editing
+  const [entryData, setEntryData] = useState(null);
 
   const location = useLocation();
+
   const fetchQuote = async () => {
     try {
       setIsLoading(true);
@@ -38,7 +42,6 @@ export default function JournalUpload() {
   }, []);
 
   useEffect(() => {
-    // Fetch moods from API
     const fetchMoods = async () => {
       try {
         const response = await axios.get(
@@ -49,16 +52,13 @@ export default function JournalUpload() {
         console.error("Error fetching moods:", error);
       }
     };
-
     fetchMoods();
   }, []);
 
   useEffect(() => {
-    // Check if the URL contains an "id" parameter
     const params = new URLSearchParams(location.search);
     const entryId = params.get("id");
     if (entryId) {
-      // Fetch the journal entry data for the provided id
       fetchEntryData(entryId);
     }
   }, [location.search]);
@@ -74,7 +74,6 @@ export default function JournalUpload() {
           },
         }
       );
-      console.log(response.data);
       const { quote, gratitude, affirmations, emojis, id } = response.data;
       setQuote(quote?.text);
       setAuthor(quote?.author);
@@ -95,23 +94,24 @@ export default function JournalUpload() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if selectedMoods is empty
+    if (!gratitude || !affirmations) {
+      setError("Please fill all the fields.");
+      return;
+    }
     if (selectedMoods.length === 0) {
       setError("Please select at least one mood.");
       return;
     }
+
     setIsSubmitting(true);
-    // Perform Axios API call to submit journal entry
     const formData = {
       quote: { text: quote, author, category },
       gratitude,
       affirmations,
-      emojis: selectedMoods.map(Number), // Convert selectedMoods to an array of numbers
+      emojis: selectedMoods.map(Number),
     };
     try {
       if (entryData) {
-        // If entryData exists, it means editing an existing entry
-        console.log(formData);
         await axios.put(
           `${process.env.REACT_APP_API_URL}/api/journal-entries/${entryData.id}`,
           formData,
@@ -121,7 +121,9 @@ export default function JournalUpload() {
             },
           }
         );
-        console.log("Journal entry updated successfully.");
+        toast.success("Journal entry updated successfully.");
+        clearForm();
+        fetchQuote();
       } else {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/api/journal-entries`,
@@ -132,87 +134,131 @@ export default function JournalUpload() {
             },
           }
         );
-        console.log("Journal entry created successfully.");
-        setAffirmations("");
-        setAuthor("");
-        setCategory("");
-        setSelectedMoods([]);
-        setError("");
-        setGratitude("");
+        toast.success("Journal entry created successfully.");
+        clearForm();
         fetchQuote();
       }
     } catch (error) {
-      console.error("Error submitting journal entry:", error);
+      toast.error("Error submitting journal entry.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  console.log(selectedMoods);
+  const clearForm = () => {
+    setAffirmations("");
+    setAuthor("");
+    setCategory("");
+    setSelectedMoods([]);
+    setError("");
+    setGratitude("");
+  };
 
-  // Function to handle checkbox change
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setSelectedMoods([...selectedMoods, value]); // Add mood to selected moods
+      setSelectedMoods([...selectedMoods, value]);
     } else {
-      setSelectedMoods(selectedMoods.filter((mood) => mood !== value)); // Remove mood from selected moods
+      setSelectedMoods(selectedMoods.filter((mood) => mood !== value));
     }
   };
 
+  useEffect(() => {
+    $(".hoverme").on("click", function () {
+      function random(max) {
+        return Math.random() * (max - 0) + 0;
+      }
+
+      var c = document.createDocumentFragment();
+      for (var i = 0; i < 100; i++) {
+        var styles =
+          "transform: translate3d(" +
+          (random(500) - 250) +
+          "px, " +
+          (random(200) - 150) +
+          "px, 0) rotate(" +
+          random(360) +
+          "deg);\
+                      background: hsla(" +
+          random(360) +
+          ",100%,50%,1);\
+                      animation: bang 700ms ease-out forwards;\
+                      opacity: 0";
+
+        var e = document.createElement("i");
+        e.style.cssText = styles.toString();
+        c.appendChild(e);
+      }
+      $(this).append(c);
+    });
+  }, []); // Only run once on component mount
+
   return (
     <div className="journal-upload-container">
-      <h2>{entryData ? "Edit Journal Entry" : "Create Journal Entry"}</h2>
+      <h2 className="journal-upload-container__heading">
+        {entryData ? "Edit Journal Entry" : "Create Journal Entry"}
+      </h2>
       <div className="quote-of-the-day">
-        {/* Display quote fetched from API */}
-        <div>Quote of the Day:</div>
+        <div className="quote-of-the-day__heading">Quote of the Day:</div>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div className="upload_quote">
-            <div>" {quote} "</div>
-            <div>- {author}</div>
+          <div className="upload-quote">
+            <div className="upload-quote__text">" {quote} "</div>
+            <div className="upload-quote__author">- {author}</div>
           </div>
         )}
       </div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="gratitude">Things you are grateful for:</label>
+          <label htmlFor="gratitude" className="form-group__label">
+            Things you are grateful for:
+          </label>
           <textarea
             id="gratitude"
             value={gratitude}
             onChange={(e) => setGratitude(e.target.value)}
-            required
+            className="form-group__textarea"
+            // required
           ></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="affirmations">Today's affirmations:</label>
+          <label htmlFor="affirmations" className="form-group__label">
+            Today's affirmations:
+          </label>
           <textarea
             id="affirmations"
             value={affirmations}
             onChange={(e) => setAffirmations(e.target.value)}
-            required
+            className="form-group__textarea"
+            // required
           ></textarea>
         </div>
-        <label>My mood today is:</label>
+        <label className="form-group__label">My mood today is:</label>
         <div className="form-group form-checkboxes">
-          {/* Display mood checkboxes */}
           {moods.map((mood) => (
-            <label key={mood.id}>
+            <label key={mood.id} className="form-checkboxes__label">
               <input
                 type="checkbox"
                 name="mood"
                 value={mood.id}
                 checked={selectedMoods.includes(String(mood.id))}
                 onChange={handleCheckboxChange}
+                className="form-checkboxes__input"
               />
-              {mood?.name} {mood?.emoji}
+              <span className="form-checkboxes__text">
+                {mood?.name} {mood?.emoji}
+              </span>
             </label>
           ))}
         </div>
         {error && <p className="error-message">{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
+        <button
+          type="submit"
+          // disabled={isSubmitting}
+          className="hoverme journal-upload-container__submit-btn"
+        >
+          Submit
         </button>
       </form>
     </div>

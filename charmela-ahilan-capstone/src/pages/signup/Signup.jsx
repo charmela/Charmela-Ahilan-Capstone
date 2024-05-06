@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Signup.scss";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Signup() {
   // State variables to hold username, email, password, and loading state
@@ -24,13 +26,12 @@ export default function Signup() {
         email,
         password,
       });
+      toast.success("Signup successful");
       console.log("Signup successful:", response.data);
-      localStorage.setItem("token", response.data.token);
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      toast.error(error?.response?.data?.message || "Error signing up");
       setError(error?.response?.data?.message || "Error signing up");
-      console.error("Signup error:", error);
     } finally {
       setIsLoading(false);
     }

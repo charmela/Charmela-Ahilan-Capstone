@@ -1,43 +1,107 @@
-.header {
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fcfcfc;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-end; // Changed from "end" to "flex-end"
-  background-color: black;
-  padding: 30px;
+  height: 100%;
 }
 
-.nav_links {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  font-size: 22px;
-  color: white;
-  font-weight: 600;
-}
-.nav_link {
-  &:hover {
-    // Corrected the placement of ":hover"
-    color: #808080;
+.navbar {
+  height: 60px;
+  background-color: #fef7e5;
+  position: relative;
+  border-bottom: 2px solid black;
+
+  .menu-icon {
+    display: none;
   }
 }
 
-.nav_link {
-  text-decoration: none;
-  color: white;
-}
+.nav-elements {
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
 
-/* Media query for screens smaller than 430px */
-@media screen and (max-width: 430px) {
-  .header {
-    padding: 10px; /* Further reduced padding for smaller screens */
+    li:not(:last-child) {
+      margin-right: 60px;
+    }
   }
 
-  .nav_links {
-    gap: 10px; /* Further reduced gap for smaller screens */
-    font-size: 14px; /* Further reduced font size for smaller screens */
+  .logo {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  ul a {
+    font-size: 16px;
+    font-weight: 400;
+    color: #2f234f;
+    text-decoration: none;
+
+    &.active {
+      color: #574c4c;
+      font-weight: 500;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #574c4c;
+      }
+    }
   }
 }
 
-.active {
-  color: red;
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+
+  .navbar .logo {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: #fef7e5;
+    width: 0;
+    height: calc(100vh - 60px);
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+
+    &.active {
+      width: 270px;
+    }
+
+    ul {
+      flex-direction: column;
+
+      li {
+        margin-right: unset;
+        margin-top: 22px;
+      }
+    }
+  }
 }

@@ -1,3 +1,9 @@
+$login-background-color: #f0f0f0;
+$login-border-color: #007bff;
+$login-input-background: #d9d9d9;
+$login-button-background: #007bff;
+$login-button-hover-background: #0056b3;
+
 .Login {
   display: flex;
   justify-content: center;
@@ -8,11 +14,13 @@
   .login-form {
     width: 300px;
     padding: 40px;
-    background-color: #f0f0f0;
+    background-color: $login-background-color;
     border-radius: 8px;
+    border: 2px solid $login-border-color;
 
     h2 {
       margin-bottom: 20px;
+      font-weight: 500;
     }
 
     .form-group {
@@ -30,7 +38,7 @@
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        background-color: #d9d9d9;
+        background-color: $login-input-background;
       }
     }
 
@@ -41,9 +49,18 @@
 
     .login_btn {
       padding: 10px 20px;
-      width: 100%;
+      background-color: $login-button-background;
+      color: #fff;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      width: 100%;
+
+      &:hover {
+        background-color: $login-button-hover-background;
+      }
     }
   }
 }

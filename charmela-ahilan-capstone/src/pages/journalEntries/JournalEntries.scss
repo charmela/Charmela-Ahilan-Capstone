@@ -1,6 +1,14 @@
 .journal-entries-container {
   margin: 20px;
   overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.journal-entries-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 500;
 }
 
 .journal-entries-table {
@@ -16,6 +24,7 @@
   th {
     background-color: #f2f2f2;
     text-align: left;
+    font-weight: 500;
   }
 
   tbody {

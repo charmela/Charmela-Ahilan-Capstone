@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./JournalEntries.scss";
+import { toast } from "react-toastify";
 
 export default function JournalEntries() {
   const [entries, setEntries] = useState([]);
@@ -36,15 +37,17 @@ export default function JournalEntries() {
         },
       });
       // Filter out the deleted entry from the state
+      toast.success("Journal entry deleted successfully.");
       setEntries(entries.filter((entry) => entry.id !== id));
     } catch (error) {
       console.error("Error deleting journal entry:", error);
+      toast.error("Error deleting journal entry.");
     }
   };
 
   return (
     <div className="journal-entries-container">
-      <h2>Journal Entries</h2>
+      <h2 className="journal-entries-heading">Journal Entries</h2>
       <table className="journal-entries-table">
         <thead>
           <tr>
@@ -58,7 +61,6 @@ export default function JournalEntries() {
           {entries.map((entry) => (
             <tr key={entry.id}>
               <td>{new Date(entry.created_at).toLocaleDateString()}</td>{" "}
-              {/* Format date */}
               <td>{entry.gratitude}</td>
               <td>{entry.affirmations}</td>
               <td>
