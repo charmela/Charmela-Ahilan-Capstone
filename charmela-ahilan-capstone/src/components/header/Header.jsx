@@ -33,9 +33,7 @@ export default function Header() {
         <div className="logo">Daily Journal</div>
         <div className="menu-icon" onClick={handleShowNavbar}>
           <svg
-            style={{
-              marginTop: "10px",
-            }}
+            className="my-svg"
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
             y="0px"
