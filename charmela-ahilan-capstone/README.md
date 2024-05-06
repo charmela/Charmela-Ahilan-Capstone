@@ -1,70 +1,198 @@
-# Getting Started with Create React App
+# Charmela-Ahilan-Capstone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Title
 
-## Available Scripts
+Daily Journal
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+A daily journal is a personal sanctuary where you capture your thoughts, feelings, and moods, allowing you to reflect on your inner world and track your emotional journey day by day. It serves as a compass guiding you through life's ups and downs, offering clarity and self-awareness along the way.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Problem
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The daily journal addresses the challenge of navigating one's emotions and maintaining self-awareness in the midst of daily life. By providing a dedicated space to record thoughts, feelings, and moods, it fosters introspection and emotional understanding.
 
-### `npm test`
+An digital journal application enhances this solution by offering accessibility and convenience. With the ability to access the journal from anywhere, users can easily capture their thoughts in real-time, ensuring nothing is missed. Additionally, features such as password protection and encryption ensure privacy and security, while search and tagging functions facilitate organization and reflection. Overall, combining the benefits of a traditional daily journal with the convenience of a portable online application empowers users to cultivate mindfulness and emotional well-being effortlessly.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### User Profile
 
-### `npm run build`
+- Journal Users:
+  - Looking to create journal entries
+  - Looking to keep track of their daily entries
+  - Sign up as a new user using auth
+  - Able to edit or delete past journal entries
+  - Log in as a registered user
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- As a user, I want to be record daily journal entries
+- As a user, I want to be able to receive a daily motivational quote for each new journal entry
+- As a user, I want to be able to select a mood icon to represent my emotional state within my journal entry
+- As a user, I want to be able to create an account to manage my journal entries
+- As a user, I want to be able to login to my account
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tech Stack
 
-### `npm run eject`
+- React
+- MySQL
+- Express
+- Client libraries:
+  - react
+  - react-router
+  - axios
+- Server libraries:
+  - knex
+  - express
+  - bcrypt for password hashing, JWT
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### APIs
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- An external library to generate daily motivational quotes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Sitemap
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Home page
+- Journal Entries
+- New Entry
+- Register/Sign Up
+- Login
 
-## Learn More
+### Mockups
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Please see under Mock-Ups folder
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Endpoints
 
-### Code Splitting
+GET Method:
+/emojis: Retrieve a list of available emojis that users can choose from to include in their journal entries.
+GET Method:
+/quote: Retrieve a new quote from the external library to display within the application.
+POST Method:
+/journal/entry: Create a new journal entry with the user's input.
+GET Method:
+/journal/entry/{entry_id1}: Retrieve a specific journal entry by its unique identifier.
+PUT Method:
+/journal/entry/{entry_id}: Update an existing journal entry with new information provided by the user.
+DELETE Method:
+/journal/entry/{entry_id}: Delete a specific journal entry by its unique identifier.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+GET Method - Retrieve Available Emojis:
 
-### Analyzing the Bundle Size
+Endpoint: /emojis
+Parameters: None
+Response:
+Status Code: 200 OK
+Body: JSON array containing available emojis, each represented as a string.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[ "😊", "😊", "💖", "😊", ...]
 
-### Making a Progressive Web App
+POST Method - Create Journal Entry:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Endpoint: /journal/entry
+Parameters:
+text (string): The text content of the journal entry.
+emojis (array of strings): Selected emojis to include in the journal entry.
+quote (object, optional): The retrieved quote to include in the journal entry.
+text (string): The quote text.
+author (string): The author of the quote.
+category (string): The category of the quote.
+Response:
+Status Code: 201 Created
+Body: JSON object representing the newly created journal entry, including the quote
+{
+"entry_id": "abc123",
+"text": "Today was a great day!",
+"emojis": ["😊", "🌟"],
+"quote": {
+"text": "The only way to do great work is to love what you do.",
+"author": "Steve Jobs",
+"category": "motivational"
+}
+}
 
-### Advanced Configuration
+PUT Method - Update Journal Entry:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Endpoint: /journal/entry/{entry_id}
+Parameters:
+text (string, optional): Updated text content of the journal entry.
+emojis (array of strings, optional): Updated selected emojis.
+Response:
+Status Code: 200 OK
+Body: JSON object representing the updated journal entry.
 
-### Deployment
+{
+"entry_id": "abc123",
+"text": "Today was an amazing day!",
+"emojis": ["😊", "🌟", "💖"]
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+GET Method - Retrieve Specific Journal Entry:
 
-### `npm run build` fails to minify
+Endpoint: /journal/entry/{entry_id}
+Parameters: None
+Response:
+Status Code: 200 OK
+Body: JSON object representing the requested journal entry.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+{
+"entry_id": "abc123",
+"text": "Today was an amazing day!",
+"emojis": ["😊", "🌟", "💖"]
+}
+
+### Auth
+
+- JWT auth
+  - Before adding auth, all API requests will be using a fake user with id 1
+  - Added after core features have first been implemented
+  - Store JWT in localStorage, remove when a user logs out
+  - Add states for logged in showing different UI in places listed in mockups
+
+## Roadmap
+
+- Create user
+
+  - react project with routes and boilerplate pages
+
+- Create server
+
+  - express project with routing, with placeholder 200 responses
+
+- Create migrations
+
+- Create seeds with user information and journal entries
+
+- Deploy client and server projects so all commits will be reflected in production
+
+- Feature: Journal Entry Page with prompts
+
+  - Journal inputs for the two given prompts
+  - Create GET /quotes endpoint to render a new quote on a new journal entry page
+  - Clickable emojis to record mood for the day
+
+- Feature: View All Journal Entries
+
+  - See all created journal entries for that user
+
+- Feature: Home page
+
+- Feature: Create account
+
+  - Implement register page + form
+  - Create POST /users/register endpoint
+
+- Feature: Login
+
+  - Implement login page + form
+  - Create POST /users/login endpoint
+
+- Bug fixes
+
+- DEMO DAY
+
+## Nice-to-haves
+
+- Feature: Sort/Search functionality
+- Server: Update expected requests / responses on protected endpoints
+- Forgot password functionality
+- More complex and visually appealing UI interface
