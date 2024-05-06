@@ -46,9 +46,9 @@ export default function JournalEntries() {
   };
 
   return (
-    <div className="journal-entries-container">
-      <h2 className="journal-entries-heading">Journal Entries</h2>
-      <table className="journal-entries-table">
+    <div className="journal-entries__container">
+      <h2 className="journal-entries__heading">Journal Entries</h2>
+      <table className="journal-entries__table">
         <thead>
           <tr>
             <th>Date</th>

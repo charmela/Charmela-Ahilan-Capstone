@@ -4,14 +4,14 @@ $signup-input-background: #d9d9d9;
 $signup-button-background: #007bff;
 $signup-button-hover-background: #0056b3;
 
-.Signup {
+.signup {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 90%;
   padding: 10px;
 
-  .signup-form {
+  &__form {
     width: 300px;
     padding: 40px;
     background-color: $signup-background-color;

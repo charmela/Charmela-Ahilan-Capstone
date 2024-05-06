@@ -38,8 +38,8 @@ export default function Signup() {
   };
 
   return (
-    <div className="Signup">
-      <form className="signup-form" onSubmit={handleSubmit}>
+    <div className="signup">
+      <form className="signup__form" onSubmit={handleSubmit}>
         <h2>{isLoading ? "Loading..." : "Sign Up"}</h2>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
