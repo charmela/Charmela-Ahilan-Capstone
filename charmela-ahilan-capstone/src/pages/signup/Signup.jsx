@@ -11,14 +11,14 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
     try {
       // Make a POST request to the signup endpoint
       const response = await axios.post(`${apiUrl}/api/auth/register`, {
