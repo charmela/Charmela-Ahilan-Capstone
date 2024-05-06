@@ -191,7 +191,7 @@ export default function JournalUpload() {
       }
       $(this).append(c);
     });
-  }, []); // Only run once on component mount
+  }, []);
 
   return (
     <div className="journal-upload-container">

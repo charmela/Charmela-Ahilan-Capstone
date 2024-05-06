@@ -1,8 +1,4 @@
-$signup-background-color: #f0f0f0;
-$signup-border-color: #007bff;
-$signup-input-background: #d9d9d9;
-$signup-button-background: #007bff;
-$signup-button-hover-background: #0056b3;
+@use "../../styles/partials/variables.scss" as *;
 
 .signup {
   display: flex;
