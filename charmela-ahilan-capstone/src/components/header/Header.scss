@@ -14,20 +14,11 @@ body {
   height: 100%;
 }
 
-.my-svg {
-  margin-top: 10px;
-  fill: blue; // Example additional styling
-}
-
 .navbar {
   height: 60px;
   background-color: #fef7e5;
   position: relative;
   border-bottom: 2px solid black;
-
-  .menu-icon {
-    display: none;
-  }
 }
 
 .nav-elements {
